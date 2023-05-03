@@ -19,3 +19,33 @@ void MainWindow::on_normsearch_clicked()
 
 }
 
+
+void MainWindow::on_binsearch_clicked()
+{
+
+}
+
+
+void MainWindow::on_gendata_clicked()
+{
+
+}
+
+
+void MainWindow::on_findit_clicked()
+{
+
+}
+
+
+void MainWindow::on_sortmerge_clicked()
+{
+
+}
+
+
+void MainWindow::on_sortstl_clicked()
+{
+
+}
+
