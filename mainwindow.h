@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -15,7 +14,25 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    bool on_normsearch_clicked();
+
+    bool on_binsearch_clicked();
+
+    void on_gendata_clicked();
+
+    void on_findit_clicked();
+
+    bool on_sortmerge_clicked();
+
+    bool on_sortstl_clicked();
+
+    void stlsort();
+
+    int systime(bool x);
+
 private:
     Ui::MainWindow *ui;
+
 };
 #endif // MAINWINDOW_H
