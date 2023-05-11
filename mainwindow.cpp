@@ -19,6 +19,7 @@ MainWindow::~MainWindow()
 
 bool MainWindow::on_normsearch_clicked()
 {
+    flagnorm = true;
 ui->using_2->setText("Using: Normal Search");
 for(int i = 0; i<ui->inputsize->text().toInt(); i++) {
     if(ui->find->text().toInt() == ui->list->item(i)->text().toInt()) {
@@ -30,6 +31,7 @@ return 0;
 
 bool MainWindow::on_binsearch_clicked()
 {
+    flagbin = true;
     ui->using_2->setText("Using: Binary Search");
     int l = v[0];
     int r = v[ui->inputsize->text().toInt()-1];
@@ -167,10 +169,10 @@ void MainWindow::on_findit_clicked()
     bool performSearch = false;
     bool performSort = false;
 
-    if (on_normsearch_clicked()) {
+    if (flagbin == true) {
         performSearch = true;
     }
-    else if (on_binsearch_clicked()) {
+    else if (flagnorm == true) {
         performSearch = true;
     }
 

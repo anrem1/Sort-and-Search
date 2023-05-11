@@ -41,6 +41,8 @@ private:
     std::vector<int> v;
     bool flagm = false;
     bool flagst = false;
+    bool flagbin = false;
+    bool flagnorm = false;
 
 };
 #endif // MAINWINDOW_H
