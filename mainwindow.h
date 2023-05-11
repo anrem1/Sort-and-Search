@@ -24,7 +24,7 @@ private slots:
 
     void on_findit_clicked();
 
-    void  on_sortmerge_clicked();
+    void on_sortmerge_clicked();
 
     void on_sortstl_clicked();
 

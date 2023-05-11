@@ -28,10 +28,31 @@ for(int i = 0; i<ui->inputsize->text().toInt(); i++) {
 return 0;
 }
 
-
 bool MainWindow::on_binsearch_clicked()
 {
-return 0;
+    ui->using_2->setText("Using: Binary Search");
+    int l = v[0];
+    int r = v[ui->inputsize->text().toInt()-1];
+    int x = ui->find->text().toInt();
+    while (l <= r) {
+        int m = l + (r - l) / 2;
+
+        // Check if x is present at mid
+        if (v[m] == x)
+            return 1;
+
+        // If x greater, ignore left half
+        if (v[m] < x)
+            l = m + 1;
+
+        // If x is smaller, ignore right half
+        else
+            r = m - 1;
+    }
+
+    // if we reach here, then element was
+    // not present
+    return 0;
 }
 
 void MainWindow::genran() {
@@ -142,38 +163,45 @@ void MainWindow::stlsort() {
 
 void MainWindow::on_findit_clicked()
 {
-
     std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
-    if(on_normsearch_clicked()) {
-    on_normsearch_clicked();
+    bool performSearch = false;
+    bool performSort = false;
+
+    if (on_normsearch_clicked()) {
+        performSearch = true;
     }
-    else if(on_binsearch_clicked()) {
-        on_binsearch_clicked();
+    else if (on_binsearch_clicked()) {
+        performSearch = true;
     }
-        std::chrono::steady_clock::time_point then = std::chrono::steady_clock::now();
-        int searchtime = std::chrono::duration_cast<std::chrono::nanoseconds>(then-now).count();
 
-       std::chrono::steady_clock::time_point t3 = std::chrono::steady_clock::now();
-       if(flagm == true)
-       {
-     on_sortmerge_clicked();
-        }
-       else if(flagst == true){
-           stlsort();
-       }
+    std::chrono::steady_clock::time_point then = std::chrono::steady_clock::now();
+    int searchtime = std::chrono::duration_cast<std::chrono::nanoseconds>(then - now).count();
 
-           std::chrono::steady_clock::time_point t4 = std::chrono::steady_clock::now();
-           int sorttime = std::chrono::duration_cast<std::chrono::nanoseconds>(t4-t3).count();
+    std::chrono::steady_clock::time_point t3 = std::chrono::steady_clock::now();
 
-           if(on_binsearch_clicked() == 0 && on_normsearch_clicked() == 0) {
-           QMessageBox::information(this,"Search", "This item does not exist.\nTime in ns taken to search: " + QString::number(searchtime) + "\nTime in ns taken to sort: " + QString::number(sorttime), QMessageBox::Ok);
-           }
-           else
-           QMessageBox::information(this,"Search", "This item exists.\nTime in ns taken to search: " + QString::number(searchtime) + "\nTime in ns taken to sort: " + QString::number(sorttime), QMessageBox::Ok);
+    if (flagm == true) {
+        performSort = true;
+    }
+    else if (flagst == true) {
+        performSort = true;
+    }
 
+    std::chrono::steady_clock::time_point t4 = std::chrono::steady_clock::now();
+    int sorttime = std::chrono::duration_cast<std::chrono::nanoseconds>(t4 - t3).count();
 
+    QString message;
+    if (performSearch) {
+        message += "This item exists.\nTime in ns taken to search: " + QString::number(searchtime) + "\n";
+    }
+    else {
+        message += "This item does not exist.\nTime in ns taken to search: " + QString::number(searchtime) + "\n";
+    }
 
+    if (performSort) {
+        message += "Time in ns taken to sort: " + QString::number(sorttime);
+    }
 
+    QMessageBox::information(this, "Search", message, QMessageBox::Ok);
 }
 
 
