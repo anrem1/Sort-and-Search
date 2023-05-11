@@ -172,15 +172,12 @@ void MainWindow::stlsort() {
 void MainWindow::on_findit_clicked()
 {
     std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
-    bool performSearch = false;
     bool performSort = false;
 
     if (flagbin == true) {
-        performSearch = true;
         on_binsearch_clicked();
     }
     else if (flagnorm == true) {
-        performSearch = true;
         on_normsearch_clicked();
     }
 
