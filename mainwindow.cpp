@@ -68,6 +68,12 @@ void MainWindow::genran() {
  void MainWindow::on_gendata_clicked()
 {
  ui->list->clear();
+  ui->sortuse->setText("Sort using");
+  ui->using_2->setText("Using");
+  flagbin = false;
+  flagnorm = false;
+  flagst = false;
+  flagm = false;
  genran();
  for(int i = 0; i<ui->inputsize->text().toInt(); i++) {
      ui->list->addItem(QString::number(v[i]));
@@ -171,9 +177,11 @@ void MainWindow::on_findit_clicked()
 
     if (flagbin == true) {
         performSearch = true;
+        on_binsearch_clicked();
     }
     else if (flagnorm == true) {
         performSearch = true;
+        on_normsearch_clicked();
     }
 
     std::chrono::steady_clock::time_point then = std::chrono::steady_clock::now();
@@ -182,17 +190,19 @@ void MainWindow::on_findit_clicked()
     std::chrono::steady_clock::time_point t3 = std::chrono::steady_clock::now();
 
     if (flagm == true) {
+        on_sortmerge_clicked();
         performSort = true;
     }
     else if (flagst == true) {
         performSort = true;
+        stlsort();
     }
 
     std::chrono::steady_clock::time_point t4 = std::chrono::steady_clock::now();
     int sorttime = std::chrono::duration_cast<std::chrono::nanoseconds>(t4 - t3).count();
 
     QString message;
-    if (performSearch) {
+    if (on_binsearch_clicked() || on_normsearch_clicked()) {
         message += "This item exists.\nTime in ns taken to search: " + QString::number(searchtime) + "\n";
     }
     else {
